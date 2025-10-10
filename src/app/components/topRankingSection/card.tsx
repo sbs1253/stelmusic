@@ -14,9 +14,9 @@ export default function Card({ video, index }) {
           <Image
             src={video.thumbnail_url}
             alt={video.title}
-            width={100}
-            height={100}
-            className="rounded-lg w-full object-cover"
+            width={96}
+            height={96}
+            className="h-24 w-24 rounded-lg object-cover"
           />
           {/* Hover Overlay */}
           <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity rounded" />

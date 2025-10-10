@@ -3,6 +3,9 @@
 import { LoadMoreOptions, VideoOptions } from '@/types/youtube';
 import { createServerSupabaseClient } from '@/lib/utils/supabase/server';
 
+const EXCLUDED_CHANNEL_IDS = ['UC6YnTqZidFg4WUiXpiCtSSQ'];
+const EXCLUDED_CHANNEL_KEYWORDS = ['아이리 칸나', 'airi kanna'];
+
 export async function getVideos({
   playlistType = 'all',
   sortBy = 'views',
@@ -21,12 +24,14 @@ export async function getVideos({
       });
       if (error) throw error;
 
+      const filteredData = (data ?? []).filter((video) => !shouldExcludeVideo(video));
+
       // 페이지네이션 적용
-      const paginatedData = data.slice(offset, offset + limit);
+      const paginatedData = filteredData.slice(offset, offset + limit);
       return {
         videos: paginatedData,
-        totalCount: data.length,
-        hasMore: offset + limit < data.length,
+        totalCount: filteredData.length,
+        hasMore: offset + limit < filteredData.length,
       };
     }
 
@@ -39,6 +44,17 @@ export async function getVideos({
       query = query.eq('playlist_type', playlistType);
     }
 
+    if (EXCLUDED_CHANNEL_IDS.length) {
+      const inClause = `(${EXCLUDED_CHANNEL_IDS.map((channelId) => `"${channelId}"`).join(',')})`;
+      query = query.not('channel_id', 'in', inClause);
+    }
+
+    EXCLUDED_CHANNEL_KEYWORDS.forEach((keyword) => {
+      const pattern = `%${keyword}%`;
+      query = query.not('channel_title', 'ilike', pattern);
+      query = query.not('video_owner_channel_title', 'ilike', pattern);
+    });
+
     const orderMap = {
       views: 'view_count',
       likes: 'like_count',
@@ -50,10 +66,15 @@ export async function getVideos({
     const { data, error, count } = await query.range(offset, offset + limit - 1);
 
     if (error) throw error;
+
+    const filteredData = (data ?? []).filter((video) => !shouldExcludeVideo(video));
+    const removedCount = (data?.length ?? 0) - filteredData.length;
+    const totalCount =
+      count != null ? Math.max(0, count - removedCount) : filteredData.length;
     return {
-      videos: data,
-      totalCount: count,
-      hasMore: count ? offset + limit < count : false,
+      videos: filteredData,
+      totalCount,
+      hasMore: totalCount ? offset + limit < totalCount : filteredData.length === limit,
     };
   } catch (error) {
     console.error('Error fetching videos:', error);
@@ -73,4 +94,17 @@ export async function loadMoreVideos(options: LoadMoreOptions) {
     console.error('Error in loadMoreVideos:', error);
     throw new Error('Failed to load more videos');
   }
+}
+
+function shouldExcludeVideo<T extends { channel_id?: string | null; channel_title?: string | null; video_owner_channel_title?: string | null }>(
+  video: T,
+) {
+  const matchesId = video.channel_id ? EXCLUDED_CHANNEL_IDS.includes(video.channel_id) : false;
+  const titles = [video.channel_title, video.video_owner_channel_title]
+    .filter(Boolean)
+    .map((title) => (title as string).toLowerCase());
+  const matchesKeyword = titles.some((title) =>
+    EXCLUDED_CHANNEL_KEYWORDS.some((keyword) => title.includes(keyword.toLowerCase())),
+  );
+  return matchesId || matchesKeyword;
 }

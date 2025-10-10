@@ -11,9 +11,9 @@ export default function Card({ video }) {
           <Image
             src={video.thumbnail_url}
             alt={video.title}
-            width={320}
-            height={180}
-            className="rounded-lg w-full object-cover"
+            width={250}
+            height={140}
+            className="h-[140px] w-full rounded-lg object-cover"
           />
           <h3 className="font-medium line-clamp-2">{video.title}</h3>
           <p className="text-sm text-gray-500">{video.video_owner_channel_title}</p>

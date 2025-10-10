@@ -45,7 +45,7 @@ const PlaybackControl = ({ videos, selectedMusic }: PlaybackControlProps) => {
                       transition-colors duration-200"
             >
               <PlaylistAdd className="w-5 h-5" />
-              <span className="font-medium">Top50 재생</span>
+              <span className="font-medium">Top30 재생</span>
             </button>
           </>
         ) : (
@@ -57,7 +57,7 @@ const PlaybackControl = ({ videos, selectedMusic }: PlaybackControlProps) => {
                       transition-colors duration-200"
           >
             <PlayArrowRounded className="w-5 h-5" />
-            <span className="font-medium">Top50 재생</span>
+            <span className="font-medium">Top30 재생</span>
           </button>
         )}
       </div>

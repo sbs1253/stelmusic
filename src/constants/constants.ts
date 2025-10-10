@@ -1,6 +1,5 @@
 export const CHANNEL_LIST = [
   'STEL_LIVE',
-  'AIRI_KANNA',
   'AYAYSUNO_YUNI',
   'SHIRAYUKI_HINA',
   'NENEKO_MASHIRO',
