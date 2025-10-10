@@ -12,7 +12,7 @@ export default function Card({ channelName, channelsData }) {
           alt={channelsData[channelName].name}
           width={80}
           height={80}
-          className="rounded-full object-contain"
+          className="h-20 w-20 rounded-full object-cover"
         />
       </Link>
       <p className="text-center text-xs line-clamp-2">{channelsData[channelName].name}</p>

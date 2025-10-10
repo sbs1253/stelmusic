@@ -27,13 +27,6 @@ export const channels = {
     imageUrl:
       'https://yt3.ggpht.com/SAQRy_stGYuw22T7tnZu8DhUTf2wZrKGXKYPDAuyA0XsaxbhOhzdWW70fhmcWtZq0VMADsUFLA=s800-c-k-c0x00ffffff-no-rj',
   },
-  AIRI_KANNA: {
-    id: 'UC6YnTqZidFg4WUiXpiCtSSQ',
-    name: '아이리 칸나 Music Official',
-    url: 'https://www.youtube.com/@airikannach',
-    imageUrl:
-      'https://yt3.ggpht.com/1_QjUJcysjbh-dKB9vPgJnn3_TQAZnBDFhPEYDlntu2QyeYwfU4R0wnrzOuld_5QKfwjNX9YtWM=s800-c-k-c0x00ffffff-no-rj',
-  },
   SHIRAYUKI_HINA: {
     id: 'UC1afpiIuBDcjYlmruAa0HiA',
     name: '시라유키 히나 SHIRAYUKI HINA',

@@ -53,13 +53,6 @@ function transformChannelData(data) {
           url: 'https://www.youtube.com/@stellive_official',
           imageUrl: channel.snippet.thumbnails.high.url,
         });
-      case 'UC6YnTqZidFg4WUiXpiCtSSQ':
-        return (channels['AIRI_KANNA'] = {
-          id: channel.id,
-          name: channel.snippet.title,
-          url: 'https://www.youtube.com/@airikannach',
-          imageUrl: channel.snippet.thumbnails.high.url,
-        });
       case 'UClbYIn9LDbbFZ9w2shX3K0g':
         return (channels['AYAYSUNO_YUNI'] = {
           id: channel.id,

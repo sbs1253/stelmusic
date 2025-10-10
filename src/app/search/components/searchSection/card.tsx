@@ -13,7 +13,7 @@ export default function Card({ video, sort = 'views' }) {
           alt={video.title}
           width={120}
           height={90}
-          className="rounded-lg object-cover bg-gray-100"
+          className="h-[90px] w-[120px] rounded-lg object-cover bg-gray-100"
         />
         <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
           <PlayCircle className="w-10 h-10 text-white" />

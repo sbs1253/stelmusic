@@ -63,7 +63,7 @@ export default function Card({ video, index, filters, toggleMusic, selectedMusic
           alt={video.title}
           width={80}
           height={80}
-          className="rounded-md object-cover bg-gray-100 w-full h-auto"
+          className="h-20 w-20 rounded-md object-cover bg-gray-100"
         />
         {isSelected && (
           <div className="absolute -top-2 -right-2 bg-white rounded-full">
